@@ -1,0 +1,63 @@
+# Source files (only publish dist/)
+src/
+*.ts
+*.tsx
+!*.d.ts
+
+# Development files
+vite.config.ts
+tsconfig.json
+tsconfig.*.json
+
+# Dependencies
+node_modules/
+
+# Build artifacts we don't need
+*.tsbuildinfo
+
+# Development and testing
+coverage/
+test/
+tests/
+__tests__/
+*.test.*
+*.spec.*
+
+# Documentation source
+docs/
+
+# Git files
+.git/
+.gitignore
+.github/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment files
+.env*
+
+# Logs
+*.log
+logs/
+
+# Cache
+.cache/
+.parcel-cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Development scripts
+scripts/
+
+# Examples (optional - you might want to include these) 
