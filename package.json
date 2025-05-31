@@ -12,7 +12,7 @@
     },
     "./styles": "./dist/styles.css"
   },
-  "files": ["dist", "README.md"],
+  "files": ["dist", "README.md", "LICENSE"],
   "scripts": {
     "build": "vite build && tsc --emitDeclarationOnly",
     "dev": "vite build --watch",
@@ -27,18 +27,19 @@
     "components",
     "ui",
     "typescript",
-    "streaming"
+    "streaming",
+    "dependency-injection"
   ],
   "author": "Your Name <your.email@example.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/agent-ui-library.git"
+    "url": "https://github.com/YOUR_USERNAME/agent-ui-chat-components.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/agent-ui-library/issues"
+    "url": "https://github.com/YOUR_USERNAME/agent-ui-chat-components/issues"
   },
-  "homepage": "https://github.com/yourusername/agent-ui-library#readme",
+  "homepage": "https://github.com/YOUR_USERNAME/agent-ui-chat-components#readme",
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
