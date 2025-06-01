@@ -2,15 +2,11 @@ name: Build and Publish to NPM
 
 on:
   push:
-    branches: [ main, develop ]
-  pull_request:
     branches: [ main ]
-  release:
-    types: [published]
-  # Alternative: trigger on version tags
-  # push:
-  #   tags:
-  #     - 'v*'
+    paths:
+      - 'package.json'
+  # Manual trigger option
+  workflow_dispatch:
 
 jobs:
   build:
@@ -43,7 +39,6 @@ jobs:
           echo "✅ Build completed successfully!"
           
       - name: Publish to NPM
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
