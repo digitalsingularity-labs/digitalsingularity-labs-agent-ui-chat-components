@@ -1,6 +1,10 @@
-name: Publish to NPM
+name: Build and Publish to NPM
 
 on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
   release:
     types: [published]
   # Alternative: trigger on version tags
@@ -9,7 +13,7 @@ on:
   #     - 'v*'
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     
     steps:
@@ -22,17 +26,24 @@ jobs:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
           
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Run tests (optional)
-        run: npm test
-        continue-on-error: true
+      - name: Clean install dependencies (fixes Rollup issue)
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
+          
+      - name: Run tests
+        run: npm test --if-present
         
       - name: Build package
         run: npm run build
         
+      - name: Check build output
+        run: |
+          ls -la dist/
+          echo "✅ Build completed successfully!"
+          
       - name: Publish to NPM
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
