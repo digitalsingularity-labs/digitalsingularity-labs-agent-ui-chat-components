@@ -19,8 +19,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -44,16 +42,8 @@ jobs:
           ls -la dist/
           echo "✅ Build completed successfully!"
           
-      - name: Auto-bump version and publish
+      - name: Publish to NPM
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          npm version patch --no-git-tag-version
-          git add package.json
-          git commit -m "Auto-bump version [skip ci]"
-          git push
-          npm publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
