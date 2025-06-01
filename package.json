@@ -1,5 +1,5 @@
 {
-  "name": "@agentui/chat-components",
+  "name": "@digitalsingularity/agent-ui-chat-components",
   "version": "1.0.0",
   "description": "Reusable AI agent chat components with dependency injection for React applications",
   "type": "module",
@@ -30,16 +30,16 @@
     "streaming",
     "dependency-injection"
   ],
-  "author": "Your Name <your.email@example.com>",
+  "author": "digitalsingularity",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_USERNAME/agent-ui-chat-components.git"
+    "url": "https://github.com/digitalsingularity/agent-ui-chat-components.git"
   },
   "bugs": {
-    "url": "https://github.com/YOUR_USERNAME/agent-ui-chat-components/issues"
+    "url": "https://github.com/digitalsingularity/agent-ui-chat-components/issues"
   },
-  "homepage": "https://github.com/YOUR_USERNAME/agent-ui-chat-components#readme",
+  "homepage": "https://github.com/digitalsingularity/agent-ui-chat-components#readme",
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
