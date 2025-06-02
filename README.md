@@ -6,7 +6,7 @@
 
 A reusable React component library for AI agent chat interfaces with dependency injection architecture.
 
-## 🚀 Features
+## 🚀 Features.
 
 - **🔌 Dependency Injection**: Bring your own UI components and services
 - **📝 TypeScript Support**: Full type safety with comprehensive type definitions  

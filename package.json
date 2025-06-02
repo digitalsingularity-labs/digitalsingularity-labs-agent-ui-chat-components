@@ -39,12 +39,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/digitalsingularity/agent-ui-chat-components.git"
+    "url": "https://github.com/digitalsingularity-labs/digitalsingularity-labs-agent-ui-chat-components"
   },
   "bugs": {
-    "url": "https://github.com/digitalsingularity/agent-ui-chat-components/issues"
+    "url": "https://github.com/digitalsingularity-labs/digitalsingularity-labs-agent-ui-chat-components/issues"
   },
-  "homepage": "https://github.com/digitalsingularity/agent-ui-chat-components#readme",
+  "homepage": "https://github.com/digitalsingularity-labs/digitalsingularity-labs-agent-ui-chat-components#readme",
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
