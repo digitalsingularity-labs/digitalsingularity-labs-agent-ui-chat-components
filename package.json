@@ -3,12 +3,13 @@
   "version": "1.0.4",
   "description": "Reusable AI agent chat components with dependency injection for React applications",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
     },
     "./styles": "./dist/styles.css"
   },
