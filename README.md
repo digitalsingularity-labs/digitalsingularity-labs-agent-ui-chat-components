@@ -1,35 +1,56 @@
-# Agent UI Chat Components
+# Agent UI Components
 
-[![npm version](https://badge.fury.io/js/@agentui%2Fchat-components.svg)](https://badge.fury.io/js/@agentui%2Fchat-components)
+[![npm version](https://badge.fury.io/js/@digitalsingularity%2Fagent-ui-chat-components.svg)](https://badge.fury.io/js/@digitalsingularity%2Fagent-ui-chat-components)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
-A reusable React component library for AI agent chat interfaces with dependency injection architecture.
+A comprehensive React component library for AI agent interfaces with dependency injection architecture.
 
-## 🚀 Features.
+## 🚀 Features
 
+- **🤖 Complete Agent Management**: Full CRUD operations for AI agents
+- **💬 Chat Interface**: Real-time streaming chat with agents
 - **🔌 Dependency Injection**: Bring your own UI components and services
 - **📝 TypeScript Support**: Full type safety with comprehensive type definitions  
 - **⚡ Streaming Support**: Real-time chat with streaming responses
-- **💾 History Management**: Optional chat history with localStorage
+- **📄 Document Management**: Upload and manage agent context documents
+- **🎭 Avatar System**: Upload custom avatars or generate AI-powered ones
+- **🏷️ Personality Tags**: Configurable agent personality traits
+- **🌡️ Temperature Control**: Fine-tune AI response randomness
+- **🔄 Model Selection**: Support for multiple AI models
+- **📱 Mobile Friendly**: Responsive design out of the box
 - **🎨 Highly Customizable**: Configurable styling and behavior
 - **🔄 Framework Agnostic**: Works with any UI component library (shadcn/ui, Chakra UI, Material-UI, etc.)
-- **📱 Mobile Friendly**: Responsive design out of the box
 
 ## 📦 Installation
 
 ```bash
-npm install @agentui/chat-components lucide-react
+npm install @digitalsingularity/agent-ui-chat-components lucide-react
 ```
 
 ## 🎯 Quick Start
+
+### AgentsPage Component
+
+```tsx
+import { AgentsPage } from '@digitalsingularity/agent-ui-chat-components';
+import { agentsPageServices } from '@/lib/agents-page-services';
+
+function App() {
+  return (
+    <AgentsPage {...agentsPageServices} />
+  );
+}
+```
+
+### AgentChatModal Component
 
 ```tsx
 import { 
   AgentChatModal, 
   UIComponents, 
   AgentService 
-} from '@agentui/chat-components';
+} from '@digitalsingularity/agent-ui-chat-components';
 
 // Import your UI components (example with shadcn/ui)
 import { Dialog, DialogContent, Button, Input, /* ... */ } from '@/components/ui';
@@ -82,6 +103,52 @@ function MyApp() {
 
 ## 📋 API Reference
 
+### AgentsPage Props
+
+The `AgentsPage` component requires extensive dependency injection. See the `AgentsPageProps` interface for the complete list of required props including:
+
+- **Navigation**: `useLocation` hook
+- **React Query**: `useMutation`, `useQueryClient`, `useQuery`
+- **API Functions**: All agent-related API functions
+- **UI Components**: Complete set of UI components (60+ components)
+- **Icons**: Lucide React icons
+- **Services**: Toast, agent, and UI services
+
+```typescript
+interface AgentsPageProps {
+  // Navigation
+  useLocation: () => [string, (path: string) => void];
+  
+  // React Query
+  useMutation: any;
+  useQueryClient: any;
+  useQuery: any;
+  
+  // API functions
+  useAiAgents: () => any;
+  createAiAgent: (agent: any) => Promise<AiAgent>;
+  updateAiAgent: (id: string, agentData: any) => Promise<AiAgent>;
+  deleteAiAgent: (id: string) => Promise<void>;
+  // ... many more API functions
+  
+  // UI Components (60+ required)
+  Card: React.ComponentType<any>;
+  Button: React.ComponentType<any>;
+  Dialog: React.ComponentType<any>;
+  // ... all required UI components
+  
+  // Icons
+  Loader2: React.ComponentType<any>;
+  Edit: React.ComponentType<any>;
+  // ... all required icons
+  
+  // Services
+  agentService: any;
+  toastService: any;
+  uiComponents: any;
+}
+```
+
 ### AgentChatModal Props
 
 | Prop | Type | Required | Description |
@@ -103,9 +170,24 @@ interface AiAgent {
   id: string;
   name: string;
   description?: string | null;
-  model: string;
+  systemInstruction: string;
   temperature?: number;
+  model: string;
+  personalityTags?: string[];
   avatarUrl?: string | null;
+  avatarType?: string;
+  avatarPrompt?: string;
+  isPublic?: boolean;
+  isOwner?: boolean;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface AiAgentDocument {
+  id: number;
+  fileName: string;
+  fileSize?: number;
 }
 
 interface AgentService {

@@ -6,6 +6,7 @@ export { createMessageId } from './lib/ai-agent';
 
 // Components
 export { default as AgentChatModal } from './components/AgentChatModal';
+export { default as AgentsPage } from './components/AgentsPage';
 
 // Service interfaces (to be created)
 export type {
