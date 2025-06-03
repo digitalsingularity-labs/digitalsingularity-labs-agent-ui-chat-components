@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2025-01-30
+
+### Fixed
+- **Race Condition**: Fixed null message race condition in streaming completion callback
+- **Input Focus**: Resolved input field focus issues during message updates
+- **Streaming Status**: Improved handling of connection status messages from backend
+- **Message Validation**: Enhanced message validation to prevent runtime errors
+
+### Changed
+- **Code Cleanup**: Removed debug logging and console statements for production
+- **TypeScript**: Fixed unused variable warnings and improved type safety
+- **Agent Selection**: Simplified default agent selection (removed hardcoded ID)
+- **Error Handling**: Improved error handling with silent fallbacks
+
+### Removed
+- Debug console logging throughout the component
+- Hardcoded default agent ID constant
+- Unused variables and imports
+
 ## [1.1.0] - 2025-01-30
 
 ### Added
