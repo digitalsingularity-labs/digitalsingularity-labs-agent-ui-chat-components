@@ -6,7 +6,7 @@
 
 A comprehensive React component library for AI agent interfaces with dependency injection architecture.
 
-## 🚀 Features
+## 🚀 Features.
 
 - **🤖 Complete Agent Management**: Full CRUD operations for AI agents
 - **💬 Chat Interface**: Real-time streaming chat with agents
