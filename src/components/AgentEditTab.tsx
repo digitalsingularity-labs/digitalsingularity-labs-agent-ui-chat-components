@@ -1,6 +1,5 @@
 import React from 'react';
 import { AgentForm, type AgentFormProps } from './AgentForm';
-import { type AiAgent } from '../lib/useAgentManagement';
 import { type AgentsSettingsUIComponents } from './AgentsSettings';
 
 export interface AgentEditTabProps extends Omit<AgentFormProps, 'showSharingOption'> {
