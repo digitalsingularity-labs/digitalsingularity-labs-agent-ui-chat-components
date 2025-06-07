@@ -128,15 +128,15 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-hidden">
-        <DialogHeader>
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-hidden" id="agent-form-modal-content">
+        <DialogHeader id="agent-form-modal-header">
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         
-        <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto px-2">
+        <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto px-2" id="agent-form-modal-form-container">
           {/* Agent Name */}
-          <div className="grid gap-2">
+          <div className="grid gap-2" id="agent-form-name-section">
             <Label htmlFor="name">Nume Agent</Label>
             <Input 
               id="agent-name-input" 
@@ -149,9 +149,9 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
           </div>
 
           {/* Avatar Section */}
-          <div className="grid gap-2">
+          <div className="grid gap-2" id="agent-form-avatar-section">
             <Label>Avatar Agent</Label>
-            <div className="flex gap-4 items-start">
+            <div className="flex gap-4 items-start" id="agent-form-avatar-container">
               {/* Avatar Preview */}
               <div className="w-20 h-20 bg-muted rounded-md overflow-hidden flex items-center justify-center">
                 {agentData.avatarUrl ? (
@@ -423,14 +423,15 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
           )}
         </div>
 
-        <DialogFooter>
-          <Button type="button" variant="secondary" onClick={onClose}>
+        <DialogFooter id="agent-form-modal-footer">
+          <Button type="button" variant="secondary" onClick={onClose} id="agent-form-cancel-btn">
             Anulează
           </Button>
           <Button 
             type="submit" 
             onClick={handleSubmit} 
             disabled={isSubmitting || !agentData.name || !agentData.systemInstruction}
+            id="agent-form-submit-btn"
           >
             {isSubmitting ? (
               <>
