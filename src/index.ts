@@ -3,6 +3,10 @@ export type { Message, AgentContext } from './lib/ai-agent';
 
 // Utility functions
 export { createMessageId } from './lib/ai-agent';
+export { 
+  createAvatarGenerationService, 
+  createMockAvatarService 
+} from './lib/avatarService';
 
 // Components
 export { default as AgentChatModal } from './components/AgentChatModal';
@@ -11,6 +15,7 @@ export { default as AgentsTab } from './components/AgentsTab';
 export { AgentsSettings } from './components/AgentsSettings';
 export { AgentFormModal } from './components/AgentFormModal';
 export { AgentResponsiveLayout } from './components/AgentResponsiveLayout';
+export { default as AvatarGenerator } from './components/AvatarGenerator';
 
 // Hooks
 export { useAgentManagement } from './lib/useAgentManagement';
@@ -28,12 +33,20 @@ export type {
 } from './components/AgentsSettings';
 export type { AgentFormModalProps } from './components/AgentFormModal';
 export type { AgentResponsiveLayoutProps } from './components/AgentResponsiveLayout';
+export type { AvatarGeneratorProps } from './components/AvatarGenerator';
 export type { 
   AgentManagementProps,
   AiAgent,
   AiAgentDocument
 } from './lib/useAgentManagement';
 export { PERSONALITY_TAGS } from './lib/useAgentManagement';
+
+// Avatar service types
+export type {
+  AvatarGenerationOptions,
+  AvatarGenerationResult,
+  AvatarGenerationFunction
+} from './lib/avatarService';
 
 // Service interfaces (to be created)
 export type {

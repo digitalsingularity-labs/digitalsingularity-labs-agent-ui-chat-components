@@ -192,7 +192,7 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
                       <Button 
                         size="sm" 
                         variant="ghost" 
-                        onClick={(e) => {
+                        onClick={(e: React.MouseEvent) => {
                           e.stopPropagation();
                           onChatWithAgent(agent);
                         }}
@@ -211,7 +211,7 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
                           <Button 
                             size="sm" 
                             variant="ghost" 
-                            onClick={(e) => {
+                            onClick={(e: React.MouseEvent) => {
                               e.stopPropagation();
                               onEditAgent(agent);
                             }}
@@ -228,7 +228,7 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
                           <Button 
                             size="sm" 
                             variant="ghost" 
-                            onClick={(e) => {
+                            onClick={(e: React.MouseEvent) => {
                               e.stopPropagation();
                               onDeleteAgent(agent);
                             }}

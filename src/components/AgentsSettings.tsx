@@ -143,8 +143,6 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
     createAgentMutation,
     updateAgentMutation,
     deleteAgentMutation,
-    shareAgentMutation,
-    uploadDocumentMutation,
     deleteDocumentMutation,
     
     // Handlers
@@ -169,11 +167,7 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
   } = agentManagement;
 
   const {
-    Card,
-    CardHeader,
-    CardTitle,
-    CardContent,
-    Button,
+    // Used UI Components
     AlertDialog,
     AlertDialogAction,
     AlertDialogCancel,
@@ -182,36 +176,12 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-    Badge,
-    Tabs,
-    TabsContent,
-    TabsList,
-    TabsTrigger,
-    Tooltip,
-    TooltipContent,
     TooltipProvider,
-    TooltipTrigger,
     Alert,
     AlertDescription,
     AlertTitle,
-    Avatar,
-    AvatarImage,
-    AvatarFallback,
     Loader2,
-    Trash2,
-    Edit,
-    Plus,
-    PlusCircle,
-    MessageSquare,
     AlertCircle,
-    Globe,
-    Share2,
-    Bot,
     AgentChatModal
   } = uiComponents;
 
@@ -295,7 +265,7 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
           title="Creează Agent Nou"
           description="Configurați detaliile pentru noul agent AI."
           agentData={newAgent}
-          setAgentData={agentManagement.wrappedSetNewAgent}
+          setAgentData={agentManagement.setNewAgent}
           documents={documents}
           setDocuments={agentManagement.setDocuments}
           handleFileChange={handleFileChange}

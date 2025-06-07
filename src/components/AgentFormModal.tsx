@@ -112,7 +112,6 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
     TabsTrigger,
     TabsContent,
     Checkbox,
-    Upload,
     Bot,
     Loader2,
     X,
