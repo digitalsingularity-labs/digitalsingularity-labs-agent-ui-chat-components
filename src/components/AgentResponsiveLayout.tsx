@@ -89,12 +89,30 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
   // Compact Layout (< 250px) - Ultra minimal
   if (layoutMode === 'compact') {
     return (
-      <div className="h-full flex flex-col" id="agent-responsive-layout-compact">
+      <div 
+        className="h-full flex flex-col" 
+        id="agent-responsive-layout-compact"
+        data-testid="agent-layout-compact"
+        data-component="AgentResponsiveLayout"
+        data-layout-mode="compact"
+        data-container-width={containerWidth}
+      >
         {/* Compact Header */}
-        <div className="p-2 border-b">
+        <div 
+          className="p-2 border-b"
+          data-testid="compact-header"
+          data-component="layout-header"
+        >
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button onClick={onCreateAgent} size="sm" className="w-full">
+              <Button 
+                onClick={onCreateAgent} 
+                size="sm" 
+                className="w-full"
+                data-testid="create-agent-button-compact"
+                data-component="create-button"
+                data-action="create-agent"
+              >
                 <PlusCircle className="h-4 w-4" />
               </Button>
             </TooltipTrigger>
@@ -103,7 +121,11 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
         </div>
 
         {/* Compact Agent List */}
-        <div className="flex-1 overflow-y-auto p-1 space-y-1">
+        <div 
+          className="flex-1 overflow-y-auto p-1 space-y-1"
+          data-testid="compact-agent-list"
+          data-component="agent-list"
+        >
           {agents.map((agent) => (
             <div
               key={agent.id}
@@ -111,9 +133,17 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
                 selectedAgentId === agent.id ? 'bg-primary/10 border-primary' : ''
               }`}
               onClick={() => onChatWithAgent(agent)}
+              data-testid={`agent-item-${agent.id}`}
+              data-component="agent-item"
+              data-agent-id={agent.id}
+              data-selected={selectedAgentId === agent.id}
             >
               <div className="flex items-center gap-2">
-                <Avatar className="h-6 w-6">
+                <Avatar 
+                  className="h-6 w-6"
+                  data-testid={`agent-avatar-${agent.id}`}
+                  data-component="agent-avatar"
+                >
                   {agent.avatarUrl ? (
                     <AvatarImage src={agent.avatarUrl} alt={agent.name} />
                   ) : (
@@ -136,16 +166,43 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
   // Narrow Layout (250-350px) - Basic cards
   if (layoutMode === 'narrow') {
     return (
-      <div className="h-full flex flex-col" id="agent-responsive-layout-narrow">
+      <div 
+        className="h-full flex flex-col" 
+        id="agent-responsive-layout-narrow"
+        data-testid="agent-layout-narrow"
+        data-component="AgentResponsiveLayout"
+        data-layout-mode="narrow"
+        data-container-width={containerWidth}
+      >
         {/* Narrow Header */}
-        <div className="p-3 border-b space-y-2">
-          <Button onClick={onCreateAgent} size="sm" className="w-full">
+        <div 
+          className="p-3 border-b space-y-2"
+          data-testid="narrow-header"
+          data-component="layout-header"
+        >
+          <Button 
+            onClick={onCreateAgent} 
+            size="sm" 
+            className="w-full"
+            data-testid="create-agent-button-narrow"
+            data-component="create-button"
+            data-action="create-agent"
+          >
             <PlusCircle className="h-4 w-4 mr-2" />
             Nou Agent
           </Button>
           
-          <Select value={agentFilter} onValueChange={onAgentFilterChange}>
-            <SelectTrigger className="h-8">
+          <Select 
+            value={agentFilter} 
+            onValueChange={onAgentFilterChange}
+            data-testid="agent-filter-select-narrow"
+            data-component="filter-selector"
+          >
+            <SelectTrigger 
+              className="h-8"
+              data-testid="filter-select-trigger"
+              data-component="select-trigger"
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -157,7 +214,11 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
         </div>
 
         {/* Narrow Agent List */}
-        <div className="flex-1 overflow-y-auto p-2 space-y-2">
+        <div 
+          className="flex-1 overflow-y-auto p-2 space-y-2"
+          data-testid="narrow-agent-list"
+          data-component="agent-list"
+        >
           {agents.map((agent) => (
             <Card 
               key={agent.id} 
@@ -253,20 +314,45 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
   // Medium Layout (350-500px) - Enhanced cards
   if (layoutMode === 'medium') {
     return (
-      <div className="h-full flex flex-col" id="agent-responsive-layout-medium">
+      <div 
+        className="h-full flex flex-col" 
+        id="agent-responsive-layout-medium"
+        data-testid="agent-layout-medium"
+        data-component="AgentResponsiveLayout"
+        data-layout-mode="medium"
+        data-container-width={containerWidth}
+      >
         {/* Medium Header */}
-        <div className="p-4 border-b space-y-3">
+        <div 
+          className="p-4 border-b space-y-3"
+          data-testid="medium-header"
+          data-component="layout-header"
+        >
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold">Agenți AI</h3>
           </div>
           
-          <Button onClick={onCreateAgent} className="w-full">
+          <Button 
+            onClick={onCreateAgent} 
+            className="w-full"
+            data-testid="create-agent-button-medium"
+            data-component="create-button"
+            data-action="create-agent"
+          >
             <PlusCircle className="h-4 w-4 mr-2" />
             Creează Agent Nou
           </Button>
           
-          <Select value={agentFilter} onValueChange={onAgentFilterChange}>
-            <SelectTrigger>
+          <Select 
+            value={agentFilter} 
+            onValueChange={onAgentFilterChange}
+            data-testid="agent-filter-select-medium"
+            data-component="filter-selector"
+          >
+            <SelectTrigger
+              data-testid="filter-select-trigger-medium"
+              data-component="select-trigger"
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -278,7 +364,11 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
         </div>
 
         {/* Medium Agent List */}
-        <div className="flex-1 overflow-y-auto p-3 space-y-3">
+        <div 
+          className="flex-1 overflow-y-auto p-3 space-y-3"
+          data-testid="medium-agent-list"
+          data-component="agent-list"
+        >
           {agents.map((agent) => (
             <Card 
               key={agent.id} 
@@ -369,22 +459,51 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
 
   // Wide Layout (500-650px) and Full Layout (>650px) - Full featured
   return (
-    <div className="h-full flex flex-col" id="agent-responsive-layout-wide">
+    <div 
+      className="h-full flex flex-col" 
+      id="agent-responsive-layout-wide"
+      data-testid="agent-layout-wide"
+      data-component="AgentResponsiveLayout"
+      data-layout-mode={layoutMode}
+      data-container-width={containerWidth}
+    >
       {/* Wide/Full Header */}
-      <div className="p-4 border-b space-y-4">
+      <div 
+        className="p-4 border-b space-y-4"
+        data-testid="wide-header"
+        data-component="layout-header"
+      >
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-semibold">Management Agenți AI</h3>
         </div>
         
-        <div className="flex gap-3">
-          <Button onClick={onCreateAgent} className="flex-1">
+        <div 
+          className="flex gap-3"
+          data-testid="wide-action-buttons"
+          data-component="action-section"
+        >
+          <Button 
+            onClick={onCreateAgent} 
+            className="flex-1"
+            data-testid="create-agent-button-wide"
+            data-component="create-button"
+            data-action="create-agent"
+          >
             <PlusCircle className="h-4 w-4 mr-2" />
             Creează Agent Nou
           </Button>
         </div>
         
-        <Select value={agentFilter} onValueChange={onAgentFilterChange}>
-          <SelectTrigger>
+        <Select 
+          value={agentFilter} 
+          onValueChange={onAgentFilterChange}
+          data-testid="agent-filter-select-wide"
+          data-component="filter-selector"
+        >
+          <SelectTrigger
+            data-testid="filter-select-trigger-wide"
+            data-component="select-trigger"
+          >
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -396,7 +515,11 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
       </div>
 
       {/* Wide/Full Agent List - Enhanced Cards */}
-      <div className="flex-1 overflow-y-auto p-4">
+      <div 
+        className="flex-1 overflow-y-auto p-4"
+        data-testid="wide-agent-list"
+        data-component="agent-list"
+      >
         <div className={`grid gap-4 ${layoutMode === 'full' ? 'grid-cols-1' : 'grid-cols-1'}`}>
           {agents.map((agent) => (
             <Card 

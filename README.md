@@ -227,6 +227,184 @@ const uiComponents = {
 };
 ```
 
+## 🧪 Testing & Element Identification
+
+All components include comprehensive identification attributes for automated testing, debugging, and analytics. The library uses a structured approach to element identification:
+
+### Identification Attribute Strategy
+
+#### 1. **`data-testid`** - For Automated Testing
+Primary attribute for test automation (Jest, Cypress, Playwright):
+```typescript
+data-testid="agent-chat-modal"
+data-testid="create-agent-button"
+data-testid="message-input"
+```
+
+#### 2. **`data-component`** - For Component Identification
+Identifies the component type or functional role:
+```typescript
+data-component="AgentChatModal"
+data-component="form-input"
+data-component="message-bubble"
+```
+
+#### 3. **`data-action`** - For User Actions
+Identifies interactive elements and their actions:
+```typescript
+data-action="send-message"
+data-action="create-agent"
+data-action="delete-agent"
+```
+
+#### 4. **`data-state`** - For Element States
+Tracks dynamic states of components:
+```typescript
+data-state="loading"
+data-state="disabled"
+data-state="selected"
+```
+
+#### 5. **`data-field`** - For Form Fields
+Identifies form inputs and their purpose:
+```typescript
+data-field="agent-name"
+data-field="system-instruction"
+data-field="temperature"
+```
+
+### Naming Conventions
+
+#### Test IDs
+- **Format**: `{component}-{element}-{modifier?}`
+- **Examples**:
+  - `agent-chat-modal` - Main chat modal
+  - `create-agent-button` - Agent creation button
+  - `message-input` - Message input field
+  - `agent-row-{id}` - Specific agent row with ID
+
+#### Component Names
+- **Format**: `{ComponentName}` or `{functional-role}`
+- **Examples**:
+  - `AgentChatModal` - Top-level component name
+  - `message-avatar` - Functional component role
+  - `input-section` - Semantic section name
+
+#### Actions
+- **Format**: `{verb}-{noun}` or `{verb}-{target}`
+- **Examples**:
+  - `send-message` - Send a message
+  - `create-agent` - Create new agent
+  - `toggle-share` - Toggle sharing state
+
+#### States
+- **Format**: `{state}` or `{property}-{value}`
+- **Examples**:
+  - `loading` - Element is loading
+  - `disabled` - Element is disabled
+  - `public` - Sharing state is public
+
+### Testing Examples
+
+#### Cypress Tests
+```typescript
+// Test agent creation
+cy.get('[data-testid="create-agent-button"]').click();
+cy.get('[data-testid="agent-name-input"]').type('Test Agent');
+cy.get('[data-testid="submit-button"]').click();
+
+// Test chat functionality
+cy.get('[data-testid="agent-chat-modal"]').should('be.visible');
+cy.get('[data-testid="message-input"]').type('Hello!');
+cy.get('[data-testid="send-button"]').click();
+```
+
+#### Jest/React Testing Library
+```typescript
+import { render, fireEvent } from '@testing-library/react';
+
+test('creates new agent', () => {
+  const { getByTestId } = render(<AgentsPage {...props} />);
+  
+  fireEvent.click(getByTestId('create-agent-button'));
+  fireEvent.change(getByTestId('agent-name-input'), { 
+    target: { value: 'Test Agent' } 
+  });
+  fireEvent.click(getByTestId('submit-button'));
+  
+  expect(getByTestId('agents-table')).toContainElement(
+    getByTestId('agent-row-test-agent')
+  );
+});
+```
+
+#### Playwright Tests
+```typescript
+// Test responsive layout
+await page.locator('[data-testid="agent-layout-compact"]').waitFor();
+await page.locator('[data-testid="agent-item-123"]').click();
+
+// Test form interactions
+await page.locator('[data-testid="agent-form-modal"]').waitFor();
+await page.fill('[data-field="name"]', 'New Agent');
+await page.click('[data-action="submit"]');
+```
+
+### Debugging & Analytics
+
+#### Debug Element Discovery
+```javascript
+// Find all interactive elements
+document.querySelectorAll('[data-action]');
+
+// Find all form fields
+document.querySelectorAll('[data-field]');
+
+// Find elements by component type
+document.querySelectorAll('[data-component="message-bubble"]');
+```
+
+#### Analytics Integration
+```typescript
+// Track user interactions
+document.addEventListener('click', (e) => {
+  const action = e.target.getAttribute('data-action');
+  const component = e.target.getAttribute('data-component');
+  
+  if (action) {
+    analytics.track('user_action', {
+      action,
+      component,
+      timestamp: Date.now()
+    });
+  }
+});
+```
+
+### Component-Specific Test IDs
+
+#### AgentChatModal
+- `agent-chat-modal` - Main modal container
+- `chat-messages-area` - Messages scroll area
+- `message-input` - Message input field
+- `send-message-button` - Send button
+- `clear-history-button` - Clear chat history
+
+#### AgentFormModal
+- `agent-form-modal` - Main form modal
+- `agent-name-input` - Agent name field
+- `system-instruction-textarea` - System instruction field
+- `temperature-slider` - Temperature control
+- `generate-avatar-button` - Avatar generation button
+
+#### AgentsPage
+- `agents-page` - Main page container
+- `create-agent-button` - Create new agent button
+- `agents-table` - Agents data table
+- `agent-row-{id}` - Individual agent rows
+- `edit-button-{id}` - Edit specific agent
+- `delete-button-{id}` - Delete specific agent
+
 ## 🔧 Development
 
 ```bash

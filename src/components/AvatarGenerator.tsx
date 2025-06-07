@@ -126,56 +126,121 @@ export const AvatarGenerator: React.FC<AvatarGeneratorProps> = ({
   const avatarSrc = getAvatarSrc();
 
   return (
-    <div className="space-y-2">
+    <div 
+      className="space-y-2"
+      data-testid="avatar-generator"
+      data-component="AvatarGenerator"
+      data-size={size}
+    >
       <Label>Avatar Agent</Label>
-      <div className="flex gap-4 items-start">
+      <div 
+        className="flex gap-4 items-start"
+        data-testid="avatar-controls-container"
+        data-component="avatar-controls"
+      >
         {/* Avatar Preview */}
-        <div className={`${currentSize.container} bg-muted rounded-md overflow-hidden flex items-center justify-center`}>
+        <div 
+          className={`${currentSize.container} bg-muted rounded-md overflow-hidden flex items-center justify-center`}
+          data-testid="avatar-preview"
+          data-component="avatar-preview"
+          data-size={size}
+        >
           {avatarSrc ? (
             <img 
               src={avatarSrc} 
               alt={`Avatar for ${agentName || 'agent'}`}
               className="w-full h-full object-cover"
+              data-testid="avatar-image"
+              data-component="avatar-image"
             />
           ) : (
-            <Bot className={`${currentSize.icon} text-muted-foreground`} />
+            <Bot 
+              className={`${currentSize.icon} text-muted-foreground`} 
+              data-testid="avatar-placeholder"
+              data-component="avatar-placeholder"
+            />
           )}
         </div>
         
         {/* Avatar Controls */}
-        <div className="flex-1 space-y-2">
+        <div 
+          className="flex-1 space-y-2"
+          data-testid="avatar-input-controls"
+          data-component="input-controls"
+        >
           {showGenerateTab ? (
-            <Tabs defaultValue="upload" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="upload">{uploadTabLabel}</TabsTrigger>
-                <TabsTrigger value="generate">{generateTabLabel}</TabsTrigger>
+            <Tabs 
+              defaultValue="upload" 
+              className="w-full"
+              data-testid="avatar-tabs"
+              data-component="avatar-tabs"
+            >
+              <TabsList 
+                className="grid w-full grid-cols-2"
+                data-testid="avatar-tabs-list"
+                data-component="tabs-list"
+              >
+                <TabsTrigger 
+                  value="upload"
+                  data-testid="upload-tab-trigger"
+                  data-component="tab-trigger"
+                  data-tab="upload"
+                >{uploadTabLabel}</TabsTrigger>
+                <TabsTrigger 
+                  value="generate"
+                  data-testid="generate-tab-trigger"
+                  data-component="tab-trigger"
+                  data-tab="generate"
+                >{generateTabLabel}</TabsTrigger>
               </TabsList>
               
-              <TabsContent value="upload" className="space-y-2">
+              <TabsContent 
+                value="upload" 
+                className="space-y-2"
+                data-testid="upload-tab-content"
+                data-component="tab-content"
+                data-tab="upload"
+              >
                 <Input 
                   type="file" 
                   accept="image/*" 
                   onChange={handleAvatarFileChange} 
                   className="text-sm"
+                  data-testid="avatar-upload-input"
+                  data-component="file-input"
+                  data-field="avatar-file"
                 />
                 {avatarFile && (
                   <p className="text-xs text-muted-foreground">{avatarFile.name}</p>
                 )}
               </TabsContent>
               
-              <TabsContent value="generate" className="space-y-2">
+              <TabsContent 
+                value="generate" 
+                className="space-y-2"
+                data-testid="generate-tab-content"
+                data-component="tab-content"
+                data-tab="generate"
+              >
                 <div className="flex gap-2">
                   <Input 
                     placeholder={placeholder}
                     value={avatarPrompt} 
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAvatarPrompt(e.target.value)}
                     className="text-sm"
+                    data-testid="avatar-prompt-input"
+                    data-component="prompt-input"
+                    data-field="avatar-prompt"
                   />
                   <Button 
                     onClick={handleGenerateAvatar} 
                     disabled={isGeneratingAvatar || !generateAvatar || (!avatarPrompt && !agentName)}
                     variant="outline"
                     size="sm"
+                    data-testid="generate-avatar-button"
+                    data-component="generate-button"
+                    data-action="generate-avatar"
+                    data-state={isGeneratingAvatar ? 'loading' : 'idle'}
                   >
                     {isGeneratingAvatar ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -191,12 +256,19 @@ export const AvatarGenerator: React.FC<AvatarGeneratorProps> = ({
             </Tabs>
           ) : (
             // Upload only mode
-            <div className="space-y-2">
+            <div 
+              className="space-y-2"
+              data-testid="upload-only-section"
+              data-component="upload-section"
+            >
               <Input 
                 type="file" 
                 accept="image/*" 
                 onChange={handleAvatarFileChange} 
                 className="text-sm"
+                data-testid="avatar-upload-input-simple"
+                data-component="file-input"
+                data-field="avatar-file"
               />
               {avatarFile && (
                 <p className="text-xs text-muted-foreground">{avatarFile.name}</p>

@@ -296,10 +296,29 @@ const AgentChatModal: React.FC<AgentChatModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className={`sm:max-w-[600px] md:max-w-[700px] lg:max-w-[800px] flex flex-col max-h-[90vh] ${className}`} id="agent-chat-modal-content">
-        <DialogHeader id="agent-chat-modal-header">
-          <div className="flex items-center gap-3" id="agent-chat-modal-agent-info">
-            <Avatar className="h-10 w-10">
+      <DialogContent 
+        className={`sm:max-w-[600px] md:max-w-[700px] lg:max-w-[800px] flex flex-col max-h-[90vh] ${className}`} 
+        id="agent-chat-modal-content"
+        data-testid="agent-chat-modal"
+        data-component="AgentChatModal"
+        data-agent-id={agent?.id}
+      >
+        <DialogHeader 
+          id="agent-chat-modal-header"
+          data-testid="agent-chat-modal-header"
+          data-component="chat-header"
+        >
+          <div 
+            className="flex items-center gap-3" 
+            id="agent-chat-modal-agent-info"
+            data-testid="agent-info-section"
+            data-component="agent-info"
+          >
+            <Avatar 
+              className="h-10 w-10"
+              data-testid="agent-avatar"
+              data-component="agent-avatar"
+            >
               {agent.avatarUrl ? (
                 <AvatarImage src={agent.avatarUrl} alt={agent.name} />
               ) : (
@@ -316,6 +335,9 @@ const AgentChatModal: React.FC<AgentChatModalProps> = ({
                     onClick={clearConversation}
                     className="text-xs mr-10"
                     id="agent-chat-clear-history-btn"
+                    data-testid="clear-history-button"
+                    data-component="clear-history"
+                    data-action="clear-conversation"
                   >
                     Clear History
                   </Button>
@@ -330,8 +352,19 @@ const AgentChatModal: React.FC<AgentChatModalProps> = ({
         </DialogHeader>
 
         {/* Chat messages area */}
-        <ScrollArea className="flex-grow border rounded-md p-4 h-[50vh] bg-background" ref={scrollAreaRef} id="agent-chat-messages-area">
-          <div className="space-y-4" id="agent-chat-messages-container">
+        <ScrollArea 
+          className="flex-grow border rounded-md p-4 h-[50vh] bg-background" 
+          ref={scrollAreaRef} 
+          id="agent-chat-messages-area"
+          data-testid="chat-messages-area"
+          data-component="messages-container"
+        >
+          <div 
+            className="space-y-4" 
+            id="agent-chat-messages-container"
+            data-testid="messages-list"
+            data-component="messages-list"
+          >
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -339,9 +372,18 @@ const AgentChatModal: React.FC<AgentChatModalProps> = ({
                   message.role === 'user' ? 'justify-end' : ''
                 }`}
                 id={`agent-chat-message-${message.id}`}
+                data-testid={`chat-message-${message.role}`}
+                data-component="chat-message"
+                data-message-id={message.id}
+                data-message-role={message.role}
               >
                 {message.role === 'assistant' && (
-                  <Avatar className="h-8 w-8">
+                  <Avatar 
+                    className="h-8 w-8"
+                    data-testid="message-assistant-avatar"
+                    data-component="message-avatar"
+                    data-avatar-role="assistant"
+                  >
                     {agent.avatarUrl ? (
                       <AvatarImage src={agent.avatarUrl} alt={agent.name} />
                     ) : (
@@ -355,11 +397,19 @@ const AgentChatModal: React.FC<AgentChatModalProps> = ({
                       ? 'bg-primary text-primary-foreground'
                       : 'bg-muted text-muted-foreground'
                   }`}
+                  data-testid="message-content"
+                  data-component="message-bubble"
+                  data-content-role={message.role}
                 >
                   {message.content}
                 </div>
                 {message.role === 'user' && (
-                  <Avatar className="h-8 w-8">
+                  <Avatar 
+                    className="h-8 w-8"
+                    data-testid="message-user-avatar"
+                    data-component="message-avatar"
+                    data-avatar-role="user"
+                  >
                     {userAvatarUrl ? (
                       <AvatarImage src={userAvatarUrl} alt="User" />
                     ) : (
@@ -370,8 +420,17 @@ const AgentChatModal: React.FC<AgentChatModalProps> = ({
               </div>
             ))}
             {isLoading && !messages.some(m => m.role === 'assistant' && m.id === assistantResponseId) && (
-              <div className="flex items-start gap-3">
-                <Avatar className="h-8 w-8">
+              <div 
+                className="flex items-start gap-3"
+                data-testid="loading-message"
+                data-component="loading-indicator"
+                data-state="loading"
+              >
+                <Avatar 
+                  className="h-8 w-8"
+                  data-testid="loading-avatar"
+                  data-component="loading-avatar"
+                >
                   {agent.avatarUrl ? (
                     <AvatarImage src={agent.avatarUrl} alt={agent.name} />
                   ) : (
@@ -387,7 +446,12 @@ const AgentChatModal: React.FC<AgentChatModalProps> = ({
         </ScrollArea>
 
         {/* Input area */}
-        <div className="flex items-center p-1 pt-0 gap-2 border-t pt-4" id="agent-chat-input-area">
+        <div 
+          className="flex items-center p-1 pt-0 gap-2 border-t pt-4" 
+          id="agent-chat-input-area"
+          data-testid="chat-input-area"
+          data-component="input-section"
+        >
           <Input
             ref={inputRef}
             placeholder="Type your message..."
@@ -397,8 +461,20 @@ const AgentChatModal: React.FC<AgentChatModalProps> = ({
             disabled={isLoading}
             className="flex-grow"
             id="agent-chat-message-input"
+            data-testid="message-input"
+            data-component="message-input"
+            data-state={isLoading ? 'disabled' : 'enabled'}
           />
-          <Button onClick={handleSendMessage} disabled={isLoading || !input.trim()} size="icon" id="agent-chat-send-btn">
+          <Button 
+            onClick={handleSendMessage} 
+            disabled={isLoading || !input.trim()} 
+            size="icon" 
+            id="agent-chat-send-btn"
+            data-testid="send-message-button"
+            data-component="send-button"
+            data-action="send-message"
+            data-state={isLoading || !input.trim() ? 'disabled' : 'enabled'}
+          >
             <Send className="h-4 w-4" />
           </Button>
         </div>

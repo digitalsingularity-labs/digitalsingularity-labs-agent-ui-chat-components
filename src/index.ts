@@ -14,6 +14,8 @@ export { default as AgentsPage } from './components/AgentsPage';
 export { default as AgentsTab } from './components/AgentsTab';
 export { AgentsSettings } from './components/AgentsSettings';
 export { AgentFormModal } from './components/AgentFormModal';
+export { AgentForm } from './components/AgentForm';
+export { AgentEditTab } from './components/AgentEditTab';
 export { AgentResponsiveLayout } from './components/AgentResponsiveLayout';
 export { default as AvatarGenerator } from './components/AvatarGenerator';
 
@@ -32,6 +34,8 @@ export type {
   AgentsSettingsUIComponents 
 } from './components/AgentsSettings';
 export type { AgentFormModalProps } from './components/AgentFormModal';
+export type { AgentFormProps } from './components/AgentForm';
+export type { AgentEditTabProps } from './components/AgentEditTab';
 export type { AgentResponsiveLayoutProps } from './components/AgentResponsiveLayout';
 export type { AvatarGeneratorProps } from './components/AvatarGenerator';
 export type { 

@@ -94,6 +94,9 @@ export interface AgentsSettingsProps extends AgentManagementProps {
   
   // Optional: Currently selected agent in editor context
   selectedAgentId?: string;
+  
+  // Optional: Tab-based editing handler
+  onEditAgentInTab?: (agent: AiAgent) => void;
 }
 
 export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
@@ -102,6 +105,7 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
     uiComponents,
     onAgentSelect,
     selectedAgentId,
+    onEditAgentInTab,
     ...agentManagementProps
   } = props;
 
@@ -187,13 +191,19 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
 
   // Enhanced agent selection handler that integrates with editor
   const handleAgentSelectAndEdit = (agent: AiAgent) => {
-    handleEditAgent(agent);
-    onAgentSelect?.(agent);
+    if (onEditAgentInTab) {
+      // Use tab-based editing if available
+      onEditAgentInTab(agent);
+    } else {
+      // Fall back to modal-based editing
+      handleEditAgent(agent);
+    }
+    // Don't call onAgentSelect for editing - we want to stay in settings
   };
 
   const handleAgentSelectAndChat = (agent: AiAgent) => {
     handleOpenChat(agent);
-    onAgentSelect?.(agent);
+    onAgentSelect?.(agent); // Only call onAgentSelect for chat to switch to agent tab
   };
 
   // Error handling for usage limits
@@ -240,7 +250,13 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
 
   return (
     <TooltipProvider>
-      <div className="h-full flex flex-col" id="agents-settings-container">
+      <div 
+        className="h-full flex flex-col" 
+        id="agents-settings-container"
+        data-testid="agents-settings"
+        data-component="AgentsSettings"
+        data-container-width={containerWidth}
+      >
         <AgentResponsiveLayout
           containerWidth={containerWidth}
           agents={agents || []}
@@ -256,6 +272,8 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
           onChatWithAgent={handleAgentSelectAndChat}
           onShareAgent={handleShareAgent}
           uiComponents={uiComponents}
+          data-testid="responsive-layout"
+          data-component="responsive-layout"
         />
 
         {/* Create Agent Modal */}
@@ -293,6 +311,8 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
           isSubmitting={createAgentMutation.isPending}
           submitButtonText={createAgentMutation.isPending ? "Se creează..." : "Creează Agent"}
           uiComponents={uiComponents}
+          data-testid="create-agent-modal"
+          data-component="create-modal"
         />
 
         {/* Edit Agent Modal */}
@@ -335,8 +355,16 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
         )}
 
         {/* Delete Confirmation Dialog */}
-        <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-          <AlertDialogContent>
+        <AlertDialog 
+          open={isDeleteDialogOpen} 
+          onOpenChange={setIsDeleteDialogOpen}
+          data-testid="delete-agent-dialog"
+          data-component="delete-dialog"
+        >
+          <AlertDialogContent
+            data-testid="delete-dialog-content"
+            data-component="delete-dialog-content"
+          >
             <AlertDialogHeader>
               <AlertDialogTitle>Șterge Agent</AlertDialogTitle>
               <AlertDialogDescription>
@@ -345,10 +373,18 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Anulează</AlertDialogCancel>
+              <AlertDialogCancel
+                data-testid="delete-cancel-button"
+                data-component="cancel-button"
+                data-action="cancel-delete"
+              >Anulează</AlertDialogCancel>
               <AlertDialogAction 
                 onClick={handleDeleteAgent}
                 className="bg-red-600 hover:bg-red-700"
+                data-testid="delete-confirm-button"
+                data-component="delete-button"
+                data-action="confirm-delete"
+                data-state={deleteAgentMutation.isPending ? 'loading' : 'idle'}
               >
                 {deleteAgentMutation.isPending ? (
                   <>

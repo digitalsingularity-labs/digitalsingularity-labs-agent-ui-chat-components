@@ -127,15 +127,35 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-hidden" id="agent-form-modal-content">
-        <DialogHeader id="agent-form-modal-header">
+      <DialogContent 
+        className="sm:max-w-[600px] max-h-[90vh] overflow-hidden" 
+        id="agent-form-modal-content"
+        data-testid="agent-form-modal"
+        data-component="AgentFormModal"
+        data-mode={isEditMode ? 'edit' : 'create'}
+      >
+        <DialogHeader 
+          id="agent-form-modal-header"
+          data-testid="form-modal-header"
+          data-component="form-header"
+        >
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         
-        <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto px-2" id="agent-form-modal-form-container">
+        <div 
+          className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto px-2" 
+          id="agent-form-modal-form-container"
+          data-testid="form-container"
+          data-component="form-fields-container"
+        >
           {/* Agent Name */}
-          <div className="grid gap-2" id="agent-form-name-section">
+          <div 
+            className="grid gap-2" 
+            id="agent-form-name-section"
+            data-testid="agent-name-section"
+            data-component="name-field"
+          >
             <Label htmlFor="name">Nume Agent</Label>
             <Input 
               id="agent-name-input" 
@@ -144,15 +164,32 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
                 setAgentData((prev: Partial<AiAgent>) => ({ ...prev, name: e.target.value }));
               }} 
               placeholder="Ex: Asistent Documente Legale"
+              data-testid="agent-name-input"
+              data-component="name-input"
+              data-field="name"
             />
           </div>
 
           {/* Avatar Section */}
-          <div className="grid gap-2" id="agent-form-avatar-section">
+          <div 
+            className="grid gap-2" 
+            id="agent-form-avatar-section"
+            data-testid="avatar-section"
+            data-component="avatar-field"
+          >
             <Label>Avatar Agent</Label>
-            <div className="flex gap-4 items-start" id="agent-form-avatar-container">
+            <div 
+              className="flex gap-4 items-start" 
+              id="agent-form-avatar-container"
+              data-testid="avatar-container"
+              data-component="avatar-controls"
+            >
               {/* Avatar Preview */}
-              <div className="w-20 h-20 bg-muted rounded-md overflow-hidden flex items-center justify-center">
+              <div 
+                className="w-20 h-20 bg-muted rounded-md overflow-hidden flex items-center justify-center"
+                data-testid="avatar-preview"
+                data-component="avatar-preview"
+              >
                 {agentData.avatarUrl ? (
                   <img 
                     src={agentData.avatarUrl} 
@@ -184,6 +221,9 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
                       accept="image/*" 
                       onChange={handleAvatarChange} 
                       className="text-sm"
+                      data-testid="avatar-upload-input"
+                      data-component="avatar-upload"
+                      data-field="avatar-file"
                     />
                     {avatarFile && (
                       <p className="text-xs text-muted-foreground">{avatarFile.name}</p>
@@ -197,12 +237,19 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
                         value={avatarPrompt} 
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAvatarPrompt(e.target.value)}
                         className="text-sm"
+                        data-testid="avatar-prompt-input"
+                        data-component="avatar-prompt"
+                        data-field="avatar-prompt"
                       />
                       <Button 
                         onClick={handleGenerateAvatar} 
                         disabled={isGeneratingAvatar || !agentData.name}
                         variant="outline"
                         size="sm"
+                        data-testid="generate-avatar-button"
+                        data-component="generate-avatar"
+                        data-action="generate-avatar"
+                        data-state={isGeneratingAvatar ? 'loading' : 'idle'}
                       >
                         {isGeneratingAvatar ? (
                           <Loader2 className="h-4 w-4 animate-spin" />
@@ -231,6 +278,9 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
               }
               placeholder="Ex: Ajută la crearea și revizuirea contractelor"
               rows={3}
+              data-testid="agent-description-textarea"
+              data-component="description-input"
+              data-field="description"
             />
           </div>
 
@@ -245,6 +295,9 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
               } 
               placeholder="Ex: Ești un asistent AI specializat în documente legale..."
               rows={4}
+              data-testid="system-instruction-textarea"
+              data-component="system-instruction-input"
+              data-field="system-instruction"
             />
           </div>
 
@@ -256,11 +309,20 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
               onValueChange={(value: string) => 
                 setAgentData((prev: Partial<AiAgent>) => ({ ...prev, model: value }))
               }
+              data-testid="model-select"
+              data-component="model-selector"
+              data-field="model"
             >
-              <SelectTrigger>
+              <SelectTrigger
+                data-testid="model-select-trigger"
+                data-component="select-trigger"
+              >
                 <SelectValue placeholder="Selectează Model" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent
+                data-testid="model-select-content"
+                data-component="select-options"
+              >
                 <SelectItem value="gpt-4o">GPT-4o (Recomandat)</SelectItem>
                 <SelectItem value="gpt-4-turbo">GPT-4 Turbo</SelectItem>
                 <SelectItem value="gpt-4">GPT-4</SelectItem>
@@ -282,6 +344,9 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
               onValueChange={(value: number[]) => 
                 setAgentData((prev: Partial<AiAgent>) => ({ ...prev, temperature: value[0] }))
               }
+              data-testid="temperature-slider"
+              data-component="temperature-control"
+              data-field="temperature"
             />
             <p className="text-sm text-muted-foreground">
               Controlează caracterul aleatoriu: valori mai mici pentru răspunsuri mai concentrate.
@@ -291,7 +356,11 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
           {/* Personality Tags */}
           <div className="grid gap-2">
             <Label>Etichete Personalitate (Opțional)</Label>
-            <div className="flex flex-wrap gap-2">
+            <div 
+              className="flex flex-wrap gap-2"
+              data-testid="personality-tags-container"
+              data-component="personality-tags"
+            >
               {personalityOptions.map(tag => (
                 <Badge 
                   key={tag} 
@@ -315,8 +384,18 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
                   } 
                 }}
                 className="text-sm"
+                data-testid="custom-tag-input"
+                data-component="custom-tag-input"
+                data-field="custom-tag"
               />
-              <Button onClick={handleAddTag} variant="outline" size="sm">
+              <Button 
+                onClick={handleAddTag} 
+                variant="outline" 
+                size="sm"
+                data-testid="add-tag-button"
+                data-component="add-tag"
+                data-action="add-tag"
+              >
                 Adaugă
               </Button>
             </div>
@@ -385,12 +464,19 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
               </div>
             )}
 
-            <div className="flex items-center gap-2 mt-2">
+            <div 
+              className="flex items-center gap-2 mt-2"
+              data-testid="document-upload-section"
+              data-component="document-upload"
+            >
               <Input 
                 type="file" 
                 multiple 
                 onChange={handleFileChange} 
                 className="text-sm"
+                data-testid="document-upload-input"
+                data-component="document-input"
+                data-field="documents"
               />
             </div>
             <p className="text-xs text-muted-foreground">
@@ -400,12 +486,19 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
 
           {/* Sharing toggle - only show for existing agents */}
           {showSharingOption && (
-            <div className="flex items-center space-x-2 border p-3 rounded-md bg-muted/20">
+            <div 
+              className="flex items-center space-x-2 border p-3 rounded-md bg-muted/20"
+              data-testid="sharing-option-section"
+              data-component="sharing-controls"
+            >
               <Checkbox 
                 checked={!!agentData.isPublic}
                 onCheckedChange={(checked: boolean) => 
                   setAgentData((prev: Partial<AiAgent>) => ({ ...prev, isPublic: checked === true }))
                 }
+                data-testid="sharing-checkbox"
+                data-component="sharing-toggle"
+                data-field="is-public"
               />
               <div className="grid gap-1.5 leading-none">
                 <Label className="text-sm font-medium leading-none flex items-center">
@@ -422,8 +515,20 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
           )}
         </div>
 
-        <DialogFooter id="agent-form-modal-footer">
-          <Button type="button" variant="secondary" onClick={onClose} id="agent-form-cancel-btn">
+        <DialogFooter 
+          id="agent-form-modal-footer"
+          data-testid="form-modal-footer"
+          data-component="form-footer"
+        >
+          <Button 
+            type="button" 
+            variant="secondary" 
+            onClick={onClose} 
+            id="agent-form-cancel-btn"
+            data-testid="cancel-button"
+            data-component="cancel-button"
+            data-action="cancel"
+          >
             Anulează
           </Button>
           <Button 
@@ -431,6 +536,10 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
             onClick={handleSubmit} 
             disabled={isSubmitting || !agentData.name || !agentData.systemInstruction}
             id="agent-form-submit-btn"
+            data-testid="submit-button"
+            data-component="submit-button"
+            data-action="submit"
+            data-state={isSubmitting ? 'loading' : 'idle'}
           >
             {isSubmitting ? (
               <>

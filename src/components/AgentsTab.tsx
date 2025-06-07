@@ -679,9 +679,25 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
   }, []);
 
   return (
-    <div className="p-4 flex-grow overflow-hidden flex flex-col h-full" id="agents-tab-interface">
-      <div className="mb-4 shrink-0" id="agents-tab-agent-select-container">
-        <div className="flex justify-between items-center" id="agents-tab-agent-selector">
+    <div 
+      className="p-4 flex-grow overflow-hidden flex flex-col h-full" 
+      id="agents-tab-interface"
+      data-testid="agents-tab"
+      data-component="AgentsTab"
+      data-document-id={documentId}
+    >
+      <div 
+        className="mb-4 shrink-0" 
+        id="agents-tab-agent-select-container"
+        data-testid="agent-selector-container"
+        data-component="agent-selector"
+      >
+        <div 
+          className="flex justify-between items-center" 
+          id="agents-tab-agent-selector"
+          data-testid="agent-selector-bar"
+          data-component="selector-bar"
+        >
           {/* Default agent (left side) */}
           <div className="flex items-center">
             {selectedAgentId && availableAgents?.find((a: AiAgent) => a.id === selectedAgentId) && (
@@ -691,6 +707,10 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
                     "h-12 w-12 circular-avatar agent-avatar-selector agent-avatar-selected", 
                   )}
                   title={availableAgents?.find((a: AiAgent) => a.id === selectedAgentId)?.name || "Agent"}
+                  data-testid="selected-agent-avatar"
+                  data-component="agent-avatar"
+                  data-agent-id={selectedAgentId}
+                  data-state="selected"
                 >
                   {availableAgents?.find((a: AiAgent) => a.id === selectedAgentId)?.avatarUrl ? (
                     <AvatarImage
@@ -718,20 +738,39 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
 
           {/* Chat history dropdown menu */}
           <div className="flex items-center">
-            <DropdownMenu>
+            <DropdownMenu
+              data-testid="chat-options-menu"
+              data-component="options-menu"
+            >
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-8 w-8 mr-2">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-8 w-8 mr-2"
+                  data-testid="options-menu-trigger"
+                  data-component="menu-trigger"
+                >
                   <MoreVertical size={16} />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Istoric conversație</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={clearConversation}>
+                <DropdownMenuItem 
+                  onClick={clearConversation}
+                  data-testid="clear-conversation-item"
+                  data-component="menu-item"
+                  data-action="clear-conversation"
+                >
                   <Trash className="mr-2 h-4 w-4" />
                   <span>Șterge conversația</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={exportConversation}>
+                <DropdownMenuItem 
+                  onClick={exportConversation}
+                  data-testid="export-conversation-item"
+                  data-component="menu-item"
+                  data-action="export-conversation"
+                >
                   <Download className="mr-2 h-4 w-4" />
                   <span>Exportă conversația</span>
                 </DropdownMenuItem>
@@ -750,6 +789,10 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
                 style={{ zIndex: availableAgents.length - index }}
                 onClick={() => handleAgentChange(agent.id)}
                 title={agent.name}
+                data-testid={`agent-avatar-${agent.id}`}
+                data-component="agent-avatar"
+                data-agent-id={agent.id}
+                data-state="available"
               >
                 {agent.avatarUrl ? (
                   <AvatarImage src={agent.avatarUrl} alt={agent.name} />
@@ -760,7 +803,13 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
             ))}
             
             {/* Manage Agents Link */}
-            <Link href="/agents" className="manage-agents-link">
+            <Link 
+              href="/agents" 
+              className="manage-agents-link"
+              data-testid="manage-agents-link"
+              data-component="management-link"
+              data-action="navigate-to-management"
+            >
               <Settings size={12} />
               <span>Management</span>
             </Link>
@@ -769,7 +818,13 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
       </div>
 
       {/* Chat Messages Area */}
-      <div ref={messagesContainerRef} className="flex-grow overflow-auto border rounded-md p-4 bg-background mb-4" id="agents-tab-messages-container">
+      <div 
+        ref={messagesContainerRef} 
+        className="flex-grow overflow-auto border rounded-md p-4 bg-background mb-4" 
+        id="agents-tab-messages-container"
+        data-testid="messages-container"
+        data-component="messages-area"
+      >
         {messages.filter(Boolean).map((message) => {
           // Safety check - ensure message exists and has required properties
           if (!message || !message.id || !message.role) {
@@ -797,9 +852,19 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
               key={message.id}
               className={clsx("flex items-start gap-3", message.role === "user" ? "justify-end" : "justify-start")}
               id={`message-${message.id}`}
+              data-testid={`message-${message.role}-${message.id}`}
+              data-component="chat-message"
+              data-message-id={message.id}
+              data-message-role={message.role}
             >
               {message.role === "assistant" && (
-                <Avatar className="h-12 w-12 circular-avatar" id={`chat-assistant-avatar-${message.id}`}>
+                <Avatar 
+                  className="h-12 w-12 circular-avatar" 
+                  id={`chat-assistant-avatar-${message.id}`}
+                  data-testid={`assistant-avatar-${message.id}`}
+                  data-component="message-avatar"
+                  data-avatar-role="assistant"
+                >
                   {messageAgent?.avatarUrl ? (
                     <AvatarImage src={messageAgent.avatarUrl} alt={messageAgent.name || 'Assistant'} />
                   ) : (
@@ -815,26 +880,49 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
                 })}
                 style={messageStyle}
                 id={`message-content-${message.id}`}
+                data-testid={`message-content-${message.id}`}
+                data-component="message-bubble"
+                data-content-role={message.role}
+                data-is-transition={isTransitionMessage}
               >
                 {/* Always show agent name for assistant messages */}
                 {message.role === "assistant" && !isTransitionMessage && messageAgent && (
-                  <div className="text-xs text-gray-500 mb-1 font-medium" id={`message-role-${message.id}`}>
+                  <div 
+                    className="text-xs text-gray-500 mb-1 font-medium" 
+                    id={`message-role-${message.id}`}
+                    data-testid={`message-agent-name-${message.id}`}
+                    data-component="agent-label"
+                  >
                     {messageAgent.name || 'Assistant'}
                   </div>
                 )}
                 
                 {!isTransitionMessage ? (
-                  <div id={`message-markdown-${message.id}`}>
+                  <div 
+                    id={`message-markdown-${message.id}`}
+                    data-testid={`message-markdown-${message.id}`}
+                    data-component="markdown-content"
+                  >
                     <ReactMarkdown>
                        {message.content || ''}
                     </ReactMarkdown>
                   </div>
                 ) : (
-                   <div id={`message-text-${message.id}`}>{message.content || ''}</div>
+                   <div 
+                     id={`message-text-${message.id}`}
+                     data-testid={`message-text-${message.id}`}
+                     data-component="transition-text"
+                   >{message.content || ''}</div>
                 )}
               </div>
               {message.role === "user" && (
-                <Avatar className="h-12 w-12 circular-avatar" id={`chat-user-avatar-${message.id}`}>
+                <Avatar 
+                  className="h-12 w-12 circular-avatar" 
+                  id={`chat-user-avatar-${message.id}`}
+                  data-testid={`user-avatar-${message.id}`}
+                  data-component="message-avatar"
+                  data-avatar-role="user"
+                >
                   <AvatarFallback><User size={20} /></AvatarFallback>
                 </Avatar>
               )}
@@ -873,11 +961,21 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
             </div>
           </div>
         )}
-        <div ref={messagesEndRef} id="agents-tab-messages-end" />
+        <div 
+          ref={messagesEndRef} 
+          id="agents-tab-messages-end" 
+          data-testid="messages-end-marker"
+          data-component="scroll-anchor"
+        />
       </div>
 
       {/* Input Area */}
-      <div className="shrink-0" id="agents-tab-input-container">
+      <div 
+        className="shrink-0" 
+        id="agents-tab-input-container"
+        data-testid="input-container"
+        data-component="input-area"
+      >
         <div className="flex gap-2">
           <Textarea
             placeholder="Scrie mesajul tău..."
@@ -892,8 +990,21 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
             disabled={isLoading}
             className="flex-grow min-h-[40px] max-h-[120px] resize-none"
             id="agents-tab-input"
+            data-testid="message-input"
+            data-component="message-input"
+            data-state={isLoading ? 'disabled' : 'enabled'}
           />
-          <Button onClick={handleButtonClick} disabled={isLoading || !input.trim()} size="icon" className="shrink-0" id="agents-tab-send-button">
+          <Button 
+            onClick={handleButtonClick} 
+            disabled={isLoading || !input.trim()} 
+            size="icon" 
+            className="shrink-0" 
+            id="agents-tab-send-button"
+            data-testid="send-button"
+            data-component="send-button"
+            data-action="send-message"
+            data-state={isLoading || !input.trim() ? 'disabled' : 'enabled'}
+          >
             <Send className="h-4 w-4" />
           </Button>
         </div>

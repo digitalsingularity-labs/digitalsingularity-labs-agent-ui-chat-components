@@ -1044,14 +1044,33 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
   // Main render
   return (
     <TooltipProvider>
-      <div className="container mx-auto py-8" id="agents-page-container">
+      <div 
+        className="container mx-auto py-8" 
+        id="agents-page-container"
+        data-testid="agents-page"
+        data-component="AgentsPage"
+      >
 
-      <div className="flex justify-between items-center mb-6">
+      <div 
+        className="flex justify-between items-center mb-6"
+        data-testid="page-header"
+        data-component="page-header"
+      >
         <div>
-          <h1 className="text-3xl font-bold" id="agents-header-title">Management Agenți AI</h1>
+          <h1 
+            className="text-3xl font-bold" 
+            id="agents-header-title"
+            data-testid="page-title"
+            data-component="page-title"
+          >Management Agenți AI</h1>
         </div>
         <div className="flex items-center gap-4 ml-auto">
-          <div className="hidden md:flex" id="agents-profile-menu">
+          <div 
+            className="hidden md:flex" 
+            id="agents-profile-menu"
+            data-testid="profile-menu-container"
+            data-component="profile-menu"
+          >
             <ProfileMenu />
           </div>
         </div>
@@ -1059,16 +1078,32 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
         
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="mb-4" id="agent-create-button">
+            <Button 
+              className="mb-4" 
+              id="agent-create-button"
+              data-testid="create-agent-button"
+              data-component="create-button"
+              data-action="create-agent"
+            >
               <PlusCircle className="mr-2 h-4 w-4" /> Creează Agent Nou
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]" id="agent-create-dialog">
+          <DialogContent 
+            className="sm:max-w-[600px]" 
+            id="agent-create-dialog"
+            data-testid="create-agent-dialog"
+            data-component="create-dialog"
+          >
           <DialogHeader>
               <DialogTitle>Creează Agent Nou</DialogTitle>
               <DialogDescription>Configurați detaliile pentru noul agent AI.</DialogDescription>
           </DialogHeader>
-            <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto px-2" id="agent-create-form">
+            <div 
+              className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto px-2" 
+              id="agent-create-form"
+              data-testid="create-form-container"
+              data-component="form-container"
+            >
                <AgentFormFields 
                  agentData={newAgent} 
                  setData={wrappedSetNewAgent} 
@@ -1118,8 +1153,25 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
               />
             </div>
           <DialogFooter>
-              <Button type="button" variant="secondary" onClick={() => setIsCreateDialogOpen(false)} id="agent-cancel-button">Anulează</Button>
-               <Button type="submit" onClick={handleCreateAgent} disabled={createAgentMutation.isPending || !newAgent.name || !newAgent.systemInstruction} id="agent-submit-button">
+              <Button 
+                type="button" 
+                variant="secondary" 
+                onClick={() => setIsCreateDialogOpen(false)} 
+                id="agent-cancel-button"
+                data-testid="cancel-create-button"
+                data-component="cancel-button"
+                data-action="cancel-create"
+              >Anulează</Button>
+               <Button 
+                 type="submit" 
+                 onClick={handleCreateAgent} 
+                 disabled={createAgentMutation.isPending || !newAgent.name || !newAgent.systemInstruction} 
+                 id="agent-submit-button"
+                 data-testid="submit-create-button"
+                 data-component="submit-button"
+                 data-action="submit-create"
+                 data-state={createAgentMutation.isPending ? 'loading' : 'idle'}
+               >
                  {createAgentMutation.isPending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Se creează...</> : "Creează Agent"}
             </Button>
           </DialogFooter>
@@ -1128,12 +1180,22 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
       
         {/* Edit Dialog */}
         <Dialog open={isEditDialogOpen} onOpenChange={(open: boolean) => {setIsEditDialogOpen(open); if (!open) setSelectedAgent(null); }}>
-          <DialogContent className="sm:max-w-[600px]" id="agent-edit-dialog">
+          <DialogContent 
+            className="sm:max-w-[600px]" 
+            id="agent-edit-dialog"
+            data-testid="edit-agent-dialog"
+            data-component="edit-dialog"
+          >
           <DialogHeader>
               <DialogTitle>Modifică Agent: {selectedAgent?.name}</DialogTitle>
               <DialogDescription>Actualizați detaliile agentului AI existent.</DialogDescription>
           </DialogHeader>
-            <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto px-2" id="agent-edit-form">
+            <div 
+              className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto px-2" 
+              id="agent-edit-form"
+              data-testid="edit-form-container"
+              data-component="form-container"
+            >
           {selectedAgent && (
                  <AgentFormFields 
                    agentData={selectedAgent} 
@@ -1187,8 +1249,25 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
                 )}
               </div>
           <DialogFooter>
-              <Button type="button" variant="secondary" onClick={() => {setIsEditDialogOpen(false); setSelectedAgent(null);}} id="agent-update-cancel-button">Anulează</Button>
-              <Button type="submit" onClick={handleUpdateAgent} disabled={updateAgentMutation.isPending || !selectedAgent?.name || !selectedAgent?.systemInstruction} id="agent-update-button">
+              <Button 
+                type="button" 
+                variant="secondary" 
+                onClick={() => {setIsEditDialogOpen(false); setSelectedAgent(null);}} 
+                id="agent-update-cancel-button"
+                data-testid="cancel-edit-button"
+                data-component="cancel-button"
+                data-action="cancel-edit"
+              >Anulează</Button>
+              <Button 
+                type="submit" 
+                onClick={handleUpdateAgent} 
+                disabled={updateAgentMutation.isPending || !selectedAgent?.name || !selectedAgent?.systemInstruction} 
+                id="agent-update-button"
+                data-testid="submit-edit-button"
+                data-component="submit-button"
+                data-action="submit-edit"
+                data-state={updateAgentMutation.isPending ? 'loading' : 'idle'}
+              >
                  {updateAgentMutation.isPending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Se salvează...</> : "Salvează Modificările"}
             </Button>
           </DialogFooter>
@@ -1197,7 +1276,11 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
       
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent id="agent-delete-dialog">
+        <AlertDialogContent 
+          id="agent-delete-dialog"
+          data-testid="delete-agent-dialog"
+          data-component="delete-dialog"
+        >
           <AlertDialogHeader>
               <AlertDialogTitle>Confirmare Ștergere</AlertDialogTitle>
             <AlertDialogDescription>
@@ -1205,8 +1288,23 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => setSelectedAgent(null)} id="agent-delete-cancel-button">Anulează</AlertDialogCancel>
-              <AlertDialogAction onClick={handleDeleteAgent} className="bg-red-600 hover:bg-red-700" disabled={deleteAgentMutation.isPending} id="agent-delete-confirm-button">
+              <AlertDialogCancel 
+                onClick={() => setSelectedAgent(null)} 
+                id="agent-delete-cancel-button"
+                data-testid="cancel-delete-button"
+                data-component="cancel-button"
+                data-action="cancel-delete"
+              >Anulează</AlertDialogCancel>
+              <AlertDialogAction 
+                onClick={handleDeleteAgent} 
+                className="bg-red-600 hover:bg-red-700" 
+                disabled={deleteAgentMutation.isPending} 
+                id="agent-delete-confirm-button"
+                data-testid="confirm-delete-button"
+                data-component="delete-button"
+                data-action="confirm-delete"
+                data-state={deleteAgentMutation.isPending ? 'loading' : 'idle'}
+              >
                  {deleteAgentMutation.isPending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Se șterge...</> : "Șterge"}
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -1247,8 +1345,16 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
             </div>
           </CardHeader>
           <CardContent>
-            <Table id="agents-table">
-              <TableHeader id="agents-table-header">
+            <Table 
+              id="agents-table"
+              data-testid="agents-table"
+              data-component="agents-table"
+            >
+              <TableHeader 
+                id="agents-table-header"
+                data-testid="table-header"
+                data-component="table-header"
+              >
                 <TableRow>
                   <TableHead>Nume</TableHead>
                   <TableHead>Model</TableHead>
@@ -1259,9 +1365,19 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
                   <TableHead className="text-right">Acțiuni</TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody id="agents-table-body">
+              <TableBody 
+                id="agents-table-body"
+                data-testid="table-body"
+                data-component="table-body"
+              >
                 {filteredAgents.length > 0 ? filteredAgents.map((agent: AiAgent) => (
-                  <TableRow key={agent.id} id={`agent-row-${agent.id}`}>
+                  <TableRow 
+                    key={agent.id} 
+                    id={`agent-row-${agent.id}`}
+                    data-testid={`agent-row-${agent.id}`}
+                    data-component="agent-row"
+                    data-agent-id={agent.id}
+                  >
                     <TableCell className="font-medium">
                       <div className="flex items-center space-x-3">
                         <Avatar className="h-10 w-10">
@@ -1303,6 +1419,10 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
                                size="icon" 
                                onClick={() => handleOpenChat(agent)}
                                id={`agent-chat-button-${agent.id}`}
+                               data-testid={`chat-button-${agent.id}`}
+                               data-component="chat-button"
+                               data-action="open-chat"
+                               data-agent-id={agent.id}
                              >
                               <MessageSquare className="h-4 w-4" />
                             </Button>
@@ -1321,6 +1441,11 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
                                   onClick={() => handleShareAgent(agent)}
                                   disabled={shareAgentMutation.isPending}
                                   id={`agent-share-button-${agent.id}`}
+                                  data-testid={`share-button-${agent.id}`}
+                                  data-component="share-button"
+                                  data-action="toggle-share"
+                                  data-agent-id={agent.id}
+                                  data-sharing-state={agent.isPublic ? 'public' : 'private'}
                                   className={agent.isPublic ? "bg-green-50 hover:bg-green-100 border border-green-200" : ""}
                                   title={agent.isPublic ? "Agent public (click to make private)" : "Agent private (click to share)"}
                                 >
@@ -1358,6 +1483,10 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
                                   size="icon" 
                                   onClick={() => handleEditAgent(agent)}
                                   id={`agent-edit-button-${agent.id}`}
+                                  data-testid={`edit-button-${agent.id}`}
+                                  data-component="edit-button"
+                                  data-action="edit-agent"
+                                  data-agent-id={agent.id}
                                 >
                                   <Edit className="h-4 w-4" />
                                 </Button>
@@ -1372,6 +1501,10 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
                                   size="icon" 
                                   onClick={() => { setSelectedAgent(agent); setIsDeleteDialogOpen(true); }}
                                   id={`agent-delete-button-${agent.id}`}
+                                  data-testid={`delete-button-${agent.id}`}
+                                  data-component="delete-button"
+                                  data-action="delete-agent"
+                                  data-agent-id={agent.id}
                                 >
                                   <Trash2 className="h-4 w-4 text-red-500" />
                                 </Button>
