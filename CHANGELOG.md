@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.1] - 2025-01-30
 
-### Fixed
+### Fixed.
 - **Race Condition**: Fixed null message race condition in streaming completion callback
 - **Input Focus**: Resolved input field focus issues during message updates
 - **Streaming Status**: Improved handling of connection status messages from backend
