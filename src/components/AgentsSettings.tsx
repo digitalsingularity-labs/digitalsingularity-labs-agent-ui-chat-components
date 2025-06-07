@@ -270,7 +270,7 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
 
   return (
     <TooltipProvider>
-      <div className="h-full flex flex-col">
+      <div className="h-full flex flex-col" id="agents-settings-container">
         <AgentResponsiveLayout
           containerWidth={containerWidth}
           agents={agents || []}

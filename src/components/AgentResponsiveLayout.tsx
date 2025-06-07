@@ -89,7 +89,7 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
   // Compact Layout (< 250px) - Ultra minimal
   if (layoutMode === 'compact') {
     return (
-      <div className="h-full flex flex-col">
+      <div className="h-full flex flex-col" id="agent-responsive-layout-compact">
         {/* Compact Header */}
         <div className="p-2 border-b">
           <Tooltip>
@@ -136,7 +136,7 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
   // Narrow Layout (250-350px) - Basic cards
   if (layoutMode === 'narrow') {
     return (
-      <div className="h-full flex flex-col">
+      <div className="h-full flex flex-col" id="agent-responsive-layout-narrow">
         {/* Narrow Header */}
         <div className="p-3 border-b space-y-2">
           <Button onClick={onCreateAgent} size="sm" className="w-full">
@@ -253,7 +253,7 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
   // Medium Layout (350-500px) - Enhanced cards
   if (layoutMode === 'medium') {
     return (
-      <div className="h-full flex flex-col">
+      <div className="h-full flex flex-col" id="agent-responsive-layout-medium">
         {/* Medium Header */}
         <div className="p-4 border-b space-y-3">
           <div className="flex items-center justify-between">
@@ -369,7 +369,7 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
 
   // Wide Layout (500-650px) and Full Layout (>650px) - Full featured
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col" id="agent-responsive-layout-wide">
       {/* Wide/Full Header */}
       <div className="p-4 border-b space-y-4">
         <div className="flex items-center justify-between">
