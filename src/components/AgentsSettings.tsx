@@ -97,6 +97,9 @@ export interface AgentsSettingsProps extends AgentManagementProps {
   
   // Optional: Tab-based editing handler
   onEditAgentInTab?: (agent: AiAgent) => void;
+  
+  // Optional: Tab-based creation handler for new agents
+  onCreateAgentInTab?: () => void;
 }
 
 export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
@@ -106,6 +109,7 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
     onAgentSelect,
     selectedAgentId,
     onEditAgentInTab,
+    onCreateAgentInTab,
     ...agentManagementProps
   } = props;
 
@@ -201,6 +205,17 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
     // Don't call onAgentSelect for editing - we want to stay in settings
   };
 
+  // Enhanced create agent handler that integrates with editor
+  const handleCreateAgentAction = () => {
+    if (onCreateAgentInTab) {
+      // Use tab-based creation if available
+      onCreateAgentInTab();
+    } else {
+      // Fall back to modal-based creation
+      setIsCreateDialogOpen(true);
+    }
+  };
+
   const handleAgentSelectAndChat = (agent: AiAgent) => {
     handleOpenChat(agent);
     onAgentSelect?.(agent); // Only call onAgentSelect for chat to switch to agent tab
@@ -263,7 +278,7 @@ export const AgentsSettings: React.FC<AgentsSettingsProps> = (props) => {
           selectedAgentId={selectedAgentId}
           agentFilter={agentFilter}
           onAgentFilterChange={setAgentFilter}
-          onCreateAgent={() => setIsCreateDialogOpen(true)}
+          onCreateAgent={handleCreateAgentAction}
           onEditAgent={handleAgentSelectAndEdit}
           onDeleteAgent={(agent) => {
             agentManagement.setSelectedAgent(agent);
