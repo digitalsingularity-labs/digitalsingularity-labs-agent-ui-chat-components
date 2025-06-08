@@ -488,7 +488,6 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
     DialogTitle,
     DialogDescription,
     DialogFooter,
-    DialogTrigger,
     Button,
     AlertDialog,
     AlertDialogAction,
@@ -518,7 +517,6 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
     Upload,
     X,
     Bot,
-    PlusCircle,
     MessageSquare,
     AlertCircle,
     Share2,
@@ -1077,17 +1075,6 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
       </div>
         
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-          <DialogTrigger asChild>
-            <Button 
-              className="mb-4" 
-              id="agent-create-button"
-              data-testid="create-agent-button"
-              data-component="create-button"
-              data-action="create-agent"
-            >
-              <PlusCircle className="mr-2 h-4 w-4" /> Creează Agent Nou
-            </Button>
-          </DialogTrigger>
           <DialogContent 
             className="sm:max-w-[600px]" 
             id="agent-create-dialog"

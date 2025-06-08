@@ -8,7 +8,6 @@ export interface AgentResponsiveLayoutProps {
   selectedAgentId?: string;
   agentFilter: 'all' | 'own' | 'public';
   onAgentFilterChange: (filter: 'all' | 'own' | 'public') => void;
-  onCreateAgent: () => void;
   onEditAgent: (agent: AiAgent) => void;
   onDeleteAgent: (agent: AiAgent) => void;
   onChatWithAgent: (agent: AiAgent) => void;
@@ -33,7 +32,6 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
   selectedAgentId,
   agentFilter,
   onAgentFilterChange,
-  onCreateAgent,
   onEditAgent,
   onDeleteAgent,
   onChatWithAgent,
@@ -62,7 +60,6 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
     Trash2,
     MessageSquare,
     Share2,
-    PlusCircle,
     Bot,
     Globe
   } = uiComponents;
@@ -103,21 +100,7 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
           data-testid="compact-header"
           data-component="layout-header"
         >
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button 
-                onClick={onCreateAgent} 
-                size="sm" 
-                className="w-full"
-                data-testid="create-agent-button-compact"
-                data-component="create-button"
-                data-action="create-agent"
-              >
-                <PlusCircle className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Creează Agent Nou</TooltipContent>
-          </Tooltip>
+
         </div>
 
         {/* Compact Agent List */}
@@ -180,17 +163,7 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
           data-testid="narrow-header"
           data-component="layout-header"
         >
-          <Button 
-            onClick={onCreateAgent} 
-            size="sm" 
-            className="w-full"
-            data-testid="create-agent-button-narrow"
-            data-component="create-button"
-            data-action="create-agent"
-          >
-            <PlusCircle className="h-4 w-4 mr-2" />
-            Nou Agent
-          </Button>
+
           
           <Select 
             value={agentFilter} 
@@ -332,16 +305,7 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
             <h3 className="text-lg font-semibold">Agenți AI</h3>
           </div>
           
-          <Button 
-            onClick={onCreateAgent} 
-            className="w-full"
-            data-testid="create-agent-button-medium"
-            data-component="create-button"
-            data-action="create-agent"
-          >
-            <PlusCircle className="h-4 w-4 mr-2" />
-            Creează Agent Nou
-          </Button>
+
           
           <Select 
             value={agentFilter} 
@@ -477,22 +441,7 @@ export const AgentResponsiveLayout: React.FC<AgentResponsiveLayoutProps> = ({
           <h3 className="text-xl font-semibold">Management Agenți AI</h3>
         </div>
         
-        <div 
-          className="flex gap-3"
-          data-testid="wide-action-buttons"
-          data-component="action-section"
-        >
-          <Button 
-            onClick={onCreateAgent} 
-            className="flex-1"
-            data-testid="create-agent-button-wide"
-            data-component="create-button"
-            data-action="create-agent"
-          >
-            <PlusCircle className="h-4 w-4 mr-2" />
-            Creează Agent Nou
-          </Button>
-        </div>
+
         
         <Select 
           value={agentFilter} 

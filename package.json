@@ -1,6 +1,6 @@
 {
   "name": "@digitalsingularity/agent-ui-chat-components",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Reusable UI components for agent chat and management interfaces",
   "type": "module",
   "main": "dist/index.es.js",
