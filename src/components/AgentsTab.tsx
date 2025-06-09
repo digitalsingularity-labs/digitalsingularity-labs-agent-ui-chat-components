@@ -204,7 +204,7 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
   Bot,
   User,
   Check,
-  Settings,
+  // Settings, // Removed with management link
   Trash,
   Download,
   MoreVertical,
@@ -214,7 +214,7 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
   clsx,
   debounce,
   useToast,
-  Link
+  // Link // Removed with management link
 }) => {
   // Add styles to document head
   useEffect(() => {
@@ -783,10 +783,12 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
                 key={agent.id}
                 className={clsx(
                   "h-10 w-10 circular-avatar agent-avatar-selector",
-                  "border-2 border-white",
-                  "-ml-2 first:ml-0"
+                  "border-2 border-white"
                 )}
-                style={{ zIndex: availableAgents.length - index }}
+                style={{ 
+                  zIndex: availableAgents.length - index,
+                  marginLeft: index === 0 ? '0' : '-0.5rem' // 8px overlap for 40px avatar = 20% overlap, 80% visible
+                }}
                 onClick={() => handleAgentChange(agent.id)}
                 title={agent.name}
                 data-testid={`agent-avatar-${agent.id}`}
@@ -801,18 +803,7 @@ const AgentsTab: React.FC<AgentsTabProps> = ({
                 )}
               </Avatar>
             ))}
-            
-            {/* Manage Agents Link */}
-            <Link 
-              href="/agents" 
-              className="manage-agents-link"
-              data-testid="manage-agents-link"
-              data-component="management-link"
-              data-action="navigate-to-management"
-            >
-              <Settings size={12} />
-              <span>Management</span>
-            </Link>
+
           </div>
         </div>
       </div>

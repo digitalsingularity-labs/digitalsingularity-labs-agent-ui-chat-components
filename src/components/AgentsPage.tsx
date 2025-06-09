@@ -933,8 +933,45 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
           description: "Avatar-ul a fost generat cu succes.",
           variant: "default",
         });
+      } else {
+        // Generate avatar for new agent (create mode)
+        // Use the preview generation endpoint that doesn't require an agent ID
+        const response = await fetch('/api/ai-agents/generate-avatar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            prompt,
+            agentName: newAgent.name
+          })
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to generate avatar');
+        }
+
+        const result = await response.json();
+        
+        // Store the generated avatar URL in the new agent data
+        setNewAgent(prev => ({ 
+          ...prev, 
+          avatarUrl: result.avatarUrl, 
+          avatarType: 'generated', 
+          avatarPrompt: prompt 
+        }));
+        
+        // Clear the avatar file since we now have a generated URL
+        setAvatarFile(null);
+        
+        toast({
+          title: "Avatar Generat",
+          description: "Avatar-ul a fost generat cu succes.",
+          variant: "default",
+        });
       }
-      // If we're not in edit mode, we just keep the prompt for when the agent is created
       
     } catch (error: any) {
       toast({
@@ -945,7 +982,7 @@ const AgentsPage: React.FC<AgentsPageProps> = (props) => {
     } finally {
       setIsGeneratingAvatar(false);
     }
-  }, [selectedAgent, newAgent.name, avatarPrompt, isEditDialogOpen, generateAiAgentAvatar, toast]);
+  }, [selectedAgent, newAgent.name, avatarPrompt, isEditDialogOpen, generateAiAgentAvatar, toast, setNewAgent, setAvatarFile]);
   
   // Upload avatar for an existing agent
   const handleUploadAvatar = async () => {

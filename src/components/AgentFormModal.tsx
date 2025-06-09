@@ -186,7 +186,7 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
             >
               {/* Avatar Preview */}
               <div 
-                className="w-20 h-20 bg-muted rounded-md overflow-hidden flex items-center justify-center"
+                className="w-20 h-20 min-w-20 min-h-20 max-w-20 max-h-20 bg-muted rounded-md overflow-hidden flex items-center justify-center flex-shrink-0"
                 data-testid="avatar-preview"
                 data-component="avatar-preview"
               >
@@ -194,13 +194,15 @@ export const AgentFormModal: React.FC<AgentFormModalProps> = ({
                   <img 
                     src={agentData.avatarUrl} 
                     alt={`Avatar for ${agentData.name || 'agent'}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover max-w-20 max-h-20"
+                    style={{ maxWidth: '80px', maxHeight: '80px' }}
                   />
                 ) : avatarFile ? (
                   <img 
                     src={URL.createObjectURL(avatarFile)} 
                     alt="Avatar preview" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover max-w-20 max-h-20"
+                    style={{ maxWidth: '80px', maxHeight: '80px' }}
                   />
                 ) : (
                   <Bot className="w-8 h-8 text-muted-foreground" />
